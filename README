@@ -1,9 +1,18 @@
 # tarantool_test
 
-Создание KV-хранилища:
+Запуск базы данных:
+> docker run --name mytarantool -d -p 3301:3301   -v <path_to_tarantool_data>:/var/lib/tarantool   tarantool/tarantool:2.6.0
+> docker exec -i -t mytarantool console
 
+Создание KV-хранилища:
 > box.cfg{listen = 3301}
 > s = box.schema.space.create('KV_storage')
 > s:format({  {name = 'key', type = 'string'}, {name = 'value', type = 'any'}  })
 > s:create_index('primary', { type = 'hash', parts = {'key'} })
 > box.schema.user.grant('guest', 'read,write,execute', 'universe')
+
+Запуск сервера:
+gunicorn -b :5000 --access-logfile - --error-logfile - app:app
+
+URL запущенного API KV-хранилища:
+http://373443-dilshod070.tmweb.ru:5000/
