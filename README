@@ -14,5 +14,5 @@
 Запуск сервера:
 gunicorn -b :5000 --access-logfile - --error-logfile - app:app
 
-URL запущенного API KV-хранилища:
+URL запущенного API KV-хранилища, на котором можно протестировать его работу:
 http://373443-dilshod070.tmweb.ru:5000/
