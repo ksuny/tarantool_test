@@ -1,0 +1,9 @@
+# tarantool_test
+
+Создание KV-хранилища:
+
+> box.cfg{listen = 3301}
+> s = box.schema.space.create('KV_storage')
+> s:format({  {name = 'key', type = 'string'}, {name = 'value', type = 'any'}  })
+> s:create_index('primary', { type = 'hash', parts = {'key'} })
+> box.schema.user.grant('guest', 'read,write,execute', 'universe')
